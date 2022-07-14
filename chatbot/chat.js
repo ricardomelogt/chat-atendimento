@@ -7,12 +7,12 @@ const toggleChat = ()=>{
 };
 
 // Ler valor do input[text] e inserir no chat
-const enviarMsg = ()=>{
+const enviarMsg = (customMsg)=>{
     let userInput = document.querySelector('.chat-input');
     let mensagemUser = document.querySelector('.chat-input').value;
     let chatList = document.querySelector('.msg-list');
 
-    if (mensagemUser.length > 0) {
+    if (mensagemUser.length > 0 && customMsg == null) {
      chatList.innerHTML += 
      `<li class='chat-msg user-msg'>
       <i class="bi bi-person icon-user" aria-label="Ícone usuário"></i>
@@ -21,8 +21,18 @@ const enviarMsg = ()=>{
       </div>
     </li>`;
     robotReact(mensagemUser);
-    }
     userInput.value = '';
+    }
+    if (customMsg != null) {
+      chatList.innerHTML += 
+     `<li class='chat-msg user-msg'>
+      <i class="bi bi-person icon-user" aria-label="Ícone usuário"></i>
+      <div class='msg-content'>
+        <p>${customMsg}</p>
+      </div>
+    </li>`;
+    robotReact(customMsg);
+    }
 }
 
 const robotDialog = (mensagemRobo)=> {
@@ -52,8 +62,21 @@ const robotReact = (mensagemUser) => {
         // BOLETO
         case resposta.indexOf('boleto') !== -1:
           console.log('direcionar para boletos');
-          robotDialog('ola vc digitou boleto');
+          robotDialog('direcionar para boletos');
           break;
+
+        // SAUDE RECIFE
+        case (resposta.indexOf('saúde') !== -1 || resposta.indexOf('saude') !== -1):
+          console.log('direcionar para Saúde Recife');
+          robotDialog('direcionar para Saúde Recife');
+          break;
+
+        // PREVIDENCIA
+        case (resposta.indexOf('previdência') !== -1 || resposta.indexOf('previdencia') !== -1):
+          console.log('direcionar para Previdência');
+          robotDialog('direcionar para Previdência');
+          break;
+
         case 'mangoes':
         case 'papayas':
           console.log('Mangoes and papayas are $2.79 a pound.');
@@ -62,4 +85,5 @@ const robotReact = (mensagemUser) => {
         default:
           console.log(`Desculpe, não entendi a mensagem: ${mensagemUser}.`);
       }
+      // window.scrollTo(0, document.querySelector(".chat-roll").scrollHeight);
 };
