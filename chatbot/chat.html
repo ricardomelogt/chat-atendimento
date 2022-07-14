@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reciprev Chatbot</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class='chat-root'>
+
+        <div class='chat-toggle chat-ativo' onclick="toggleChat()">
+          <i class="bi bi-chat-square-text" role="button" aria-label="Chat-Atendimento"></i>
+        </div>
+  
+        <div class='chat-window main-chat chat-ativo'>
+  
+          <header class='chat-header'>
+            <div>
+              <h3>Saúde Recife</h3>
+              <span>Chat Atendimento</span>
+            </div>
+            <i class="bi bi-arrow-counterclockwise" role="button" aria-label="Reset chat"></i>
+            <i onclick="toggleChat()" class="bi bi-x-lg" role="button" aria-label="Minimizar chat"></i>
+          </header>
+  
+          <div class='chat-roll'>
+            <ul class='msg-list'>
+
+              <li class="chat-msg bot-msg">
+                <i class="bi bi-robot icon-bot" aria-label="Ícone chat-bot"></i>
+                <div class="msg-content">
+                  <p>Olá! Seja bem vindo(a) ao chat atendimento Saúde Recife.</p>
+                  <p>
+                    Os serviços abaixo estão disponíveis. Em qual eu posso ajudar?
+                  </p>
+                  <div class="chat-btn btn-saude" onclick="toggleChat()">Saúde Recife</div>
+                  <div class="chat-btn btn-previdencia">Previdência</div>
+                </div>
+              </li>
+
+            </ul>
+          </div>
+  
+          <div class='chat-input-area'>
+            <input class='chat-input' type="text" placeholder='Digite aqui sua mensagem...'/>
+            <i class="bi bi-play-fill chat-send" role="button" aria-label="Enviar" onclick="enviarMsg()"></i>
+          </div>
+  
+        </div>
+  
+      </div>
+
+      <script src="chat.js"></script>
+</body>
+</html>
