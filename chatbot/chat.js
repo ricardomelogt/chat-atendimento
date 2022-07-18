@@ -46,7 +46,7 @@ const robotDialog = (mensagemRobo)=> {
      `<li class='chat-msg bot-msg'>
       <i class="bi bi-robot icon-bot" aria-label="Ícone chat-bot"></i>
       <div class='msg-content'>
-        <p>${mensagemRobo}</p>
+        <div>${mensagemRobo}</div>
       </div>
     </li>`;
 }
@@ -64,16 +64,25 @@ const robotReact = (mensagemUser) => {
     console.log('resposta para: '+ mensagemUser);
     let resposta = mensagemUser.toLowerCase();
     switch (true) {
-        // BOLETO
+        
+        // SAUDE RECIFE
+        case (resposta.indexOf('saúde') !== -1 || resposta.indexOf('saude') !== -1):
+          console.log('direcionar para Saúde Recife');
+          robotDialog(`<p>No Saúde Recife posso lhe ajudar em:</p>
+            <div class="chat-btn" onclick="enviarMsg('boleto')">Gerar Boleto</div>
+            <div class="chat-btn" onclick="enviarMsg('situação de guia')">Situação de Guia</div>`);
+          break;
+
+        // SAUDE RECIFE > BOLETO
         case resposta.indexOf('boleto') !== -1:
           console.log('direcionar para boletos');
           robotDialog('direcionar para boletos');
           break;
 
-        // SAUDE RECIFE
-        case (resposta.indexOf('saúde') !== -1 || resposta.indexOf('saude') !== -1):
-          console.log('direcionar para Saúde Recife');
-          robotDialog('direcionar para Saúde Recife');
+        // SAUDE RECIFE > SITUAÇÃO DE GUIA
+        case resposta.indexOf('guia') !== -1:
+          console.log('direcionar para situação de guia');
+          robotDialog('direcionar para situação de guia');
           break;
 
         // PREVIDENCIA
@@ -82,7 +91,7 @@ const robotReact = (mensagemUser) => {
           robotDialog('direcionar para Previdência');
           break;
 
-        case 'mangoes':
+        case 'mangoes': // utilizar esse nesting ao invez de operador || *****
         case 'papayas':
           console.log('Mangoes and papayas are $2.79 a pound.');
           // expected output: "Mangoes and papayas are $2.79 a pound."
