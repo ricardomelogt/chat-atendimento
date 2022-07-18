@@ -1,5 +1,10 @@
 var userCommand;
 
+// Reset chat
+const resetChat = ()=>{
+    document.location.reload();
+};
+
 // Ativar-desativar chat
 const toggleChat = ()=>{
     document.querySelector('.chat-window.main-chat').classList.toggle('chat-ativo');
