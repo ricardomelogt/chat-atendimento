@@ -83,7 +83,8 @@ const robotReact = (mensagemUser) => {
           // expected output: "Mangoes and papayas are $2.79 a pound."
           break;
         default:
+          robotDialog(`Desculpe, não possuo respostas para: "${mensagemUser}"`);
           console.log(`Desculpe, não entendi a mensagem: ${mensagemUser}.`);
       }
-      // window.scrollTo(0, document.querySelector(".chat-roll").scrollHeight);
+      document.querySelector(".chat-roll").scrollTo(0, document.querySelector(".chat-roll").scrollHeight);
 };
