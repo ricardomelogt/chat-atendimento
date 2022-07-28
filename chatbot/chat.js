@@ -1,4 +1,6 @@
-var userCommand;
+const rolarChat = ()=> {
+  document.querySelector(".chat-roll").scrollTo(0, document.querySelector(".chat-roll").scrollHeight);
+}
 
 // Reset chat
 const resetChat = ()=>{
@@ -49,6 +51,7 @@ const robotDialog = (mensagemRobo)=> {
         <div>${mensagemRobo}</div>
       </div>
     </li>`;
+    rolarChat();
 }
 
 // Enviar mensagem com 'Enter'
@@ -66,11 +69,12 @@ const robotReact = (mensagemUser) => {
     switch (true) {
         
         // SAUDE RECIFE
-        case (resposta.indexOf('saúde') !== -1 || resposta.indexOf('saude') !== -1):
+        case resposta.indexOf('saúde') !== -1:
+        case resposta.indexOf('saude') !== -1:
           console.log('direcionar para Saúde Recife');
-          robotDialog(`<p>No Saúde Recife posso lhe ajudar em:</p>
-            <div class="chat-btn" onclick="enviarMsg('boleto')">Gerar Boleto</div>
-            <div class="chat-btn" onclick="enviarMsg('situação de guia')">Situação de Guia</div>`);
+          robotDialog(`<p>No <strong>Saúde Recife</strong> posso lhe ajudar em:</p>
+            <div class="chat-btn" onclick="enviarMsg('Boleto')">Gerar boleto</div>
+            <div class="chat-btn" onclick="enviarMsg('Situação de guia')">Situação de guia</div>`);
           break;
 
         // SAUDE RECIFE > BOLETO
@@ -86,19 +90,33 @@ const robotReact = (mensagemUser) => {
           break;
 
         // PREVIDENCIA
-        case (resposta.indexOf('previdência') !== -1 || resposta.indexOf('previdencia') !== -1):
+        case resposta.indexOf('previdência') !== -1:
+        case resposta.indexOf('previdencia') !== -1:
           console.log('direcionar para Previdência');
-          robotDialog('direcionar para Previdência');
+          robotDialog(`<p>No <strong>Plano de Previdência</strong> posso lhe ajudar em:</p>
+            <div class="chat-btn" onclick="enviarMsg('Calendário de pagamento')">Calendário de pagamento</div>
+            <div class="chat-btn" onclick="enviarMsg('Situação de processo')">Situação de processo</div>`);
           break;
 
-        case 'mangoes': // utilizar esse nesting ao invez de operador || *****
-        case 'papayas':
-          console.log('Mangoes and papayas are $2.79 a pound.');
-          // expected output: "Mangoes and papayas are $2.79 a pound."
+        // PREVIDENCIA > CALENDÁRIO DE PAGAMENTO
+        case resposta.indexOf('calendário') !== -1:
+        case resposta.indexOf('calendario') !== -1:
+        case resposta.indexOf('pagamento') !== -1:
+          console.log('direcionar para Calendário de pagamento');
+          robotDialog(`<p>Direcionar para Calendário de pagamento</p>`);
           break;
+        
+        // PREVIDENCIA > SITUAÇÃO DE PROCESSO
+        case resposta.indexOf('processo') !== -1:
+        case resposta.indexOf('situação de processo') !== -1:
+          console.log('direcionar para Situação de processo');
+          robotDialog(`<p>Para verificar o status do processo, por favor informe o número do processo aqui: </p><span class='line-space'></span><input class='msg-input' type="number" placeholder='Digite aqui o número do processo...'/>
+          <div class="chat-btn" onclick="robotDialog('Estou verificando o processo...')">Verificar processo</div>`);
+          break;
+
         default:
           robotDialog(`Desculpe, não possuo respostas para: "${mensagemUser}"`);
           console.log(`Desculpe, não entendi a mensagem: ${mensagemUser}.`);
       }
-      document.querySelector(".chat-roll").scrollTo(0, document.querySelector(".chat-roll").scrollHeight);
+      rolarChat();
 };
