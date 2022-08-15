@@ -9,8 +9,15 @@ const resetChat = ()=>{
 
 // Ativar-desativar chat
 const toggleChat = ()=>{
-    document.querySelector('.chat-window.main-chat').classList.toggle('chat-ativo');
-    document.querySelector('.chat-toggle').classList.toggle('chat-ativo');
+    let chatWindow = document.querySelector('.chat-window.main-chat');
+    let toggleBtn = document.querySelector('.chat-toggle');
+
+    chatWindow.classList.toggle('chat-ativo');
+    toggleBtn.classList.toggle('chat-ativo');
+
+    if ( chatWindow.classList.contains('.chat-ativo') ) {
+      // script para caso o chat fique ativo
+    }
 };
 
 // Ler valor do input[text] e inserir no chat
@@ -72,9 +79,12 @@ const robotReact = (mensagemUser) => {
         case resposta.indexOf('saúde') !== -1:
         case resposta.indexOf('saude') !== -1:
           console.log('direcionar para Saúde Recife');
-          robotDialog(`<p>No <strong>Saúde Recife</strong> posso lhe ajudar em:</p>
+          robotDialog(`
+            <p>No <strong>Saúde Recife</strong> posso lhe ajudar em:</p>
             <div class="chat-btn" onclick="enviarMsg('Boleto')">Gerar boleto</div>
-            <div class="chat-btn" onclick="enviarMsg('Situação de guia')">Situação de guia</div>`);
+            <div class="chat-btn" onclick="enviarMsg('Situação de guia')">Situação de guia</div>
+            <div class="chat-btn" onclick="enviarMsg('Cadastramento biométrico')">Cadastramento biométrico</div>
+            `);
           break;
 
         // SAUDE RECIFE > BOLETO
@@ -87,6 +97,14 @@ const robotReact = (mensagemUser) => {
         case resposta.indexOf('guia') !== -1:
           console.log('direcionar para situação de guia');
           robotDialog('direcionar para situação de guia');
+          break;
+
+        // SAUDE RECIFE > AGENDAMENTO, RECADASTRAMENTO E CADASTRAMENTO BIOMETRICO
+        case resposta.indexOf('biométrico') !== -1:
+        case resposta.indexOf('biometrico') !== -1:
+        case resposta.indexOf('biometria') !== -1:
+          console.log('direcionar para cadastramento biométrico');
+          window.parent.location.href = "https://reciprev.recife.pe.gov.br/agendamento-recadastramento-e-cadastro-biometrico";
           break;
 
         // PREVIDENCIA
