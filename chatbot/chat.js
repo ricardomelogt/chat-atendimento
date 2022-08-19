@@ -14,10 +14,6 @@ const toggleChat = ()=>{
 
     chatWindow.classList.toggle('chat-ativo');
     toggleBtn.classList.toggle('chat-ativo');
-
-    if ( chatWindow.classList.contains('.chat-ativo') ) {
-      // script para caso o chat fique ativo
-    }
 };
 
 // Ler valor do input[text] e inserir no chat
@@ -104,7 +100,7 @@ const robotReact = (mensagemUser) => {
         case resposta.indexOf('biometrico') !== -1:
         case resposta.indexOf('biometria') !== -1:
           console.log('direcionar para cadastramento biométrico');
-          window.parent.location.href = "https://reciprev.recife.pe.gov.br/agendamento-recadastramento-e-cadastro-biometrico";
+          window.location.href = "https://reciprev.recife.pe.gov.br/agendamento-recadastramento-e-cadastro-biometrico";
           break;
 
         // PREVIDENCIA
