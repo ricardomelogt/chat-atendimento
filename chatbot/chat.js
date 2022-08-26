@@ -80,23 +80,28 @@ const robotReact = (mensagemUser) => {
             <div class="chat-btn" onclick="enviarMsg('Boleto')">Gerar boleto</div>
             <div class="chat-btn" onclick="enviarMsg('Situação de guia')">Situação de guia</div>
             <div class="chat-btn" onclick="enviarMsg('Cadastramento biométrico')">Cadastramento biométrico</div>
-            <div class="chat-btn" onclick="enviarMsg('Cálculos Autuariais')">Cálculos Autuariais</div>
-            <div class="chat-btn" onclick="enviarMsg('Cartilha sobre o COVID-19')">Cartilha sobre o Coronavirus</div>
-            <div class="chat-btn" onclick="enviarMsg('Cartilha sobre Autismo')">Cartilha sobre Autismo</div>
+            <div class="chat-btn" onclick="enviarMsg('Cálculos autuariais')">Cálculos autuariais</div>
+            <div class="chat-btn" onclick="enviarMsg('Cartilha sobre o COVID-19')">Cartilha sobre o coronavirus</div>
+            <div class="chat-btn" onclick="enviarMsg('Cartilha sobre autismo')">Cartilha sobre autismo</div>
             <div class="chat-btn" onclick="enviarMsg('Cobertura')">Cobertura</div>
-            <div class="chat-btn" onclick="enviarMsg('Credenciamento Médico-Odontológico')">Credenciamento Médico-Odontológico</div>
+            <div class="chat-btn" onclick="enviarMsg('Credenciamento Médico-Odontológico')">Credenciamento médico-Odontológico</div>
+            <div class="chat-btn" onclick="enviarMsg('Manual da rede credenciada')">Manual da rede credenciada</div>
+            <div class="chat-btn" onclick="enviarMsg('Manual do credenciado')">Manual do credenciado</div>
+            <div class="chat-btn" onclick="enviarMsg('Normatizações')">Normatizações</div>
+            <div class="chat-btn" onclick="enviarMsg('Portal do beneficiário')">Portal do beneficiário</div>
+            <div class="chat-btn" onclick="enviarMsg('Rede médica credenciada')">Rede médica credenciada</div>
+            <div class="chat-btn" onclick="enviarMsg('Sistema de co-participação')">Sistema de co-participação</div>
+            <div class="chat-btn" onclick="enviarMsg('Sobre o sistema')">Sobre o Saúde Recife</div>
             `);
           break;
 
         // SAUDE RECIFE > BOLETO
         case resposta.indexOf('boleto') !== -1:
-          console.log('direcionar para boletos');
           robotDialog('direcionar para boletos');
           break;
 
         // SAUDE RECIFE > SITUAÇÃO DE GUIA
         case resposta.indexOf('guia') !== -1:
-          console.log('direcionar para situação de guia');
           robotDialog('direcionar para situação de guia');
           break;
 
@@ -104,14 +109,12 @@ const robotReact = (mensagemUser) => {
         case resposta.indexOf('biométrico') !== -1:
         case resposta.indexOf('biometrico') !== -1:
         case resposta.indexOf('biometria') !== -1:
-          console.log('direcionar para cadastramento biométrico');
           window.location.href = "https://reciprev.recife.pe.gov.br/agendamento-recadastramento-e-cadastro-biometrico";
           break;
 
         // SAUDE RECIFE > CALCULOS AUTUARIAIS
         case resposta.indexOf('autuariais') !== -1:
         case resposta.indexOf('autuarial') !== -1:
-          console.log('direcionar para cálculos autuariais');
           window.location.href = "https://reciprev.recife.pe.gov.br/calculos-atuariais-0";
           break;
 
@@ -119,26 +122,64 @@ const robotReact = (mensagemUser) => {
         case resposta.indexOf('coronavirus') !== -1:
         case resposta.indexOf('covid') !== -1:
           case resposta.indexOf('covid-19') !== -1:
-          console.log('direcionar para cartilha sobre o coronavirus');
           window.location.href = "https://reciprev.recife.pe.gov.br/cartilha-coronavirus";
           break;
 
         // SAUDE RECIFE > CARTILHA SOBRE O AUTISMO
         case resposta.indexOf('autismo') !== -1:
-          console.log('direcionar para cartilha sobre autismo');
           window.location.href = "https://reciprev.recife.pe.gov.br/cartilha-sobre-autismo";
           break;
 
         // SAUDE RECIFE > COBERTURA DO SAUDE RECIFE
         case resposta.indexOf('cobertura') !== -1:
-          console.log('direcionar para cobertura');
           window.location.href = "https://reciprev.recife.pe.gov.br/rol-de-cobertura-do-saude-recife";
           break;
 
-        // SAUDE RECIFE > COBERTURA DO SAUDE RECIFE
+        // SAUDE RECIFE > CREDENCIAMENTO MÉDICO-ODONTOLOGICO
         case resposta.indexOf('credenciamento') !== -1:
-          console.log('direcionar para credenciamento médico-odontológico');
           window.location.href = "https://reciprev.recife.pe.gov.br/credenciamento-medico-odontologico-saude-recife";
+          break;
+        
+        // SAUDE RECIFE > MANUAL DA REDE CREDENCIADA
+        case resposta.indexOf('manual da rede credenciada') !== -1:
+          window.location.href = "https://reciprev.recife.pe.gov.br/manual-da-rede-credenciada";
+          break;
+
+        // SAUDE RECIFE > MANUAL DO CREDENCIADO
+        case resposta.indexOf('manual do credenciado') !== -1:
+          window.location.href = "https://reciprev.recife.pe.gov.br/sites/default/files/inline-files/MANUAL%20DO%20CREDENCIADO.pdf";
+          break;
+
+        // SAUDE RECIFE > NORMATIZAÇÕES
+        case resposta.indexOf('normatizações') !== -1:
+        case resposta.indexOf('normatizacoes') !== -1:
+        case resposta.indexOf('normatizaçoes') !== -1:
+          window.location.href = "https://reciprev.recife.pe.gov.br/normatizacoes";
+          break;
+        
+        // SAUDE RECIFE > PORTAL DO BENEFICIÁRIO
+        case resposta.indexOf('portal do beneficiário') !== -1:
+        case resposta.indexOf('portal') !== -1:
+        case resposta.indexOf('beneficiario') !== -1:
+          window.location.href = "http://www.recife.pe.gov.br/sauderecife/getRoles.do;jsessionid=FAB987E8CAAFFADF62E4B5C2B25FC534";
+          break;
+        
+        // SAUDE RECIFE > REDE MÉDICA CREDENCIADA
+        case resposta.indexOf('rede medica credenciada') !== -1:
+        case resposta.indexOf('rede médica credenciada') !== -1:
+        case resposta.indexOf('rede credenciada') !== -1:
+          window.location.href = "https://reciprev.recife.pe.gov.br/rede-medica-credenciada";
+          break;
+        
+        // SAUDE RECIFE > SISTEMA DE CO-PARTICIPAÇÃO
+        case resposta.indexOf('co-participação') !== -1:
+        case resposta.indexOf('co-participacao') !== -1:
+          window.location.href = "https://reciprev.recife.pe.gov.br/sistema-de-co-participacao";
+          break;
+
+        // SAUDE RECIFE > SOBRE O SAÚDE RECIFE
+        case resposta.indexOf('sobre o sistema') !== -1:
+          window.location.href = "https://reciprev.recife.pe.gov.br/sobre-o-sistema-saude-recife";
           break;
 
         // PREVIDENCIA
