@@ -176,6 +176,7 @@ span.line-space {
   outline: 0;
   font-size: 0.7rem;
   flex: 1;
+  height: 100%;
 }
 
 .chat-input:focus {
@@ -198,7 +199,7 @@ span.line-space {
   padding: 10px;
   background-color: #3384be;
   border-radius: 3px;
-  margin: 10px;
+  margin: 10px auto;
   cursor: pointer;
   text-align: center;
   font-weight: bold;

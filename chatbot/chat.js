@@ -4,16 +4,39 @@ const rolarChat = ()=> {
 
 // Reset chat
 const resetChat = ()=>{
-    document.location.reload();
+  document.querySelector('.msg-list').innerHTML = 
+  `
+  <li class="chat-msg bot-msg">
+    <i class="bi bi-robot icon-bot" aria-label="Ícone chat-bot"></i>
+    <div class="msg-content">
+      <p>Olá! Seja bem vindo(a) ao chat atendimento Saúde Recife.</p>
+      <p>
+        Os serviços abaixo estão disponíveis. Em qual eu posso ajudar?
+      </p>
+      <div class="chat-btn" onclick="enviarMsg('Saúde Recife')">Saúde Recife</div>
+      <div class="chat-btn" onclick="enviarMsg('Previdência')">Previdência</div>
+    </div>
+  </li>
+  `;
+  ativarInput();
 };
 
-// Ativar-desativar chat
+// Ativar-desativar janela do chat
 const toggleChat = ()=>{
     let chatWindow = document.querySelector('.chat-window.main-chat');
     let toggleBtn = document.querySelector('.chat-toggle');
 
     chatWindow.classList.toggle('chat-ativo');
     toggleBtn.classList.toggle('chat-ativo');
+};
+
+// Ativar-desativar entrada de texto no chat
+const ativarInput = ()=>{
+  document.querySelector('.chat-input').disabled = false;
+};
+
+const desativarInput = ()=>{
+  document.querySelector('.chat-input').disabled = true;
 };
 
 // Ler valor do input[text] e inserir no chat
@@ -69,8 +92,14 @@ document.addEventListener("keypress", function(event) {
 const robotReact = (mensagemUser) => {
     console.log('resposta para: '+ mensagemUser);
     let resposta = mensagemUser.toLowerCase();
+    let newURL;
     switch (true) {
         
+        // PALAVRAS-CHAVE IGNORADAS
+        case resposta.indexOf('sim, leve-me até lá!') !== -1:
+        case resposta.indexOf('não, desejo outra coisa.') !== -1:
+          break;
+
         // SAUDE RECIFE : LISTA DE BOTÕES
         case resposta.indexOf('saúde') !== -1:
         case resposta.indexOf('saude') !== -1:
@@ -79,149 +108,125 @@ const robotReact = (mensagemUser) => {
             <p>No <strong>Saúde Recife</strong> posso lhe ajudar em:</p>
             <div class="chat-btn" onclick="enviarMsg('Boleto')">Gerar boleto</div>
             <div class="chat-btn" onclick="enviarMsg('Situação de guia')">Situação de guia</div>
-            <div class="chat-btn" onclick="enviarMsg('Cadastramento biométrico')">Cadastramento biométrico</div>
-            <div class="chat-btn" onclick="enviarMsg('Cálculos autuariais')">Cálculos autuariais</div>
-            <div class="chat-btn" onclick="enviarMsg('Cartilha sobre o COVID-19')">Cartilha sobre o coronavirus</div>
-            <div class="chat-btn" onclick="enviarMsg('Cartilha sobre autismo')">Cartilha sobre autismo</div>
-            <div class="chat-btn" onclick="enviarMsg('Cobertura')">Cobertura</div>
-            <div class="chat-btn" onclick="enviarMsg('Credenciamento Médico-Odontológico')">Credenciamento médico-Odontológico</div>
-            <div class="chat-btn" onclick="enviarMsg('Manual da rede credenciada')">Manual da rede credenciada</div>
-            <div class="chat-btn" onclick="enviarMsg('Manual do credenciado')">Manual do credenciado</div>
             <div class="chat-btn" onclick="enviarMsg('Normatizações')">Normatizações</div>
             <div class="chat-btn" onclick="enviarMsg('Portal do beneficiário')">Portal do beneficiário</div>
             <div class="chat-btn" onclick="enviarMsg('Rede médica credenciada')">Rede médica credenciada</div>
-            <div class="chat-btn" onclick="enviarMsg('Sistema de co-participação')">Sistema de co-participação</div>
-            <div class="chat-btn" onclick="enviarMsg('Sobre o sistema')">Sobre o Saúde Recife</div>
             `);
           break;
 
         // SAUDE RECIFE > BOLETO
         case resposta.indexOf('boleto') !== -1:
-          robotDialog('direcionar para boletos');
+        case resposta.indexOf('boletos') !== -1:
+
+          desativarInput();
+          robotDialog(`<p>Para ter acesso, por favor informe seu CPF: </p><span class='line-space'></span><input class='msg-input' type="number" placeholder='Digite seu CPF...'/>
+          <div class="chat-btn" onclick="robotDialog('Verificando dados...');ativarInput();">Enviar</div>`);
           break;
 
         // SAUDE RECIFE > SITUAÇÃO DE GUIA
         case resposta.indexOf('guia') !== -1:
-          robotDialog('direcionar para situação de guia');
-          break;
-
-        // SAUDE RECIFE > AGENDAMENTO, RECADASTRAMENTO E CADASTRAMENTO BIOMETRICO
-        case resposta.indexOf('biométrico') !== -1:
-        case resposta.indexOf('biometrico') !== -1:
-        case resposta.indexOf('biometria') !== -1:
-          window.location.href = "https://reciprev.recife.pe.gov.br/agendamento-recadastramento-e-cadastro-biometrico";
-          break;
-
-        // SAUDE RECIFE > CALCULOS AUTUARIAIS
-        case resposta.indexOf('autuariais') !== -1:
-        case resposta.indexOf('autuarial') !== -1:
-          window.location.href = "https://reciprev.recife.pe.gov.br/calculos-atuariais-0";
-          break;
-
-        // SAUDE RECIFE > CARTILHA SOBRE O CORONAVIRUS
-        case resposta.indexOf('coronavirus') !== -1:
-        case resposta.indexOf('covid') !== -1:
-          case resposta.indexOf('covid-19') !== -1:
-          window.location.href = "https://reciprev.recife.pe.gov.br/cartilha-coronavirus";
-          break;
-
-        // SAUDE RECIFE > CARTILHA SOBRE O AUTISMO
-        case resposta.indexOf('autismo') !== -1:
-          window.location.href = "https://reciprev.recife.pe.gov.br/cartilha-sobre-autismo";
-          break;
-
-        // SAUDE RECIFE > COBERTURA DO SAUDE RECIFE
-        case resposta.indexOf('cobertura') !== -1:
-          window.location.href = "https://reciprev.recife.pe.gov.br/rol-de-cobertura-do-saude-recife";
-          break;
-
-        // SAUDE RECIFE > CREDENCIAMENTO MÉDICO-ODONTOLOGICO
-        case resposta.indexOf('credenciamento') !== -1:
-          window.location.href = "https://reciprev.recife.pe.gov.br/credenciamento-medico-odontologico-saude-recife";
-          break;
-        
-        // SAUDE RECIFE > MANUAL DA REDE CREDENCIADA
-        case resposta.indexOf('manual da rede credenciada') !== -1:
-          window.location.href = "https://reciprev.recife.pe.gov.br/manual-da-rede-credenciada";
-          break;
-
-        // SAUDE RECIFE > MANUAL DO CREDENCIADO
-        case resposta.indexOf('manual do credenciado') !== -1:
-          window.location.href = "https://reciprev.recife.pe.gov.br/sites/default/files/inline-files/MANUAL%20DO%20CREDENCIADO.pdf";
+          
+          desativarInput();
+          robotDialog(`<p>Para ter acesso, por favor informe seu CPF: </p><span class='line-space'></span><input class='msg-input' type="number" placeholder='Digite seu CPF...'/>
+          <div class="chat-btn" onclick="robotDialog('Verificando dados...');ativarInput();">Enviar</div>`);
           break;
 
         // SAUDE RECIFE > NORMATIZAÇÕES
         case resposta.indexOf('normatizações') !== -1:
         case resposta.indexOf('normatizacoes') !== -1:
         case resposta.indexOf('normatizaçoes') !== -1:
-          window.location.href = "https://reciprev.recife.pe.gov.br/normatizacoes";
+        case resposta.indexOf('norma') !== -1:
+        case resposta.indexOf('normas') !== -1:
+        case resposta.indexOf('regulamento') !== -1:
+        case resposta.indexOf('regulamentos') !== -1:
+        case resposta.indexOf('leis') !== -1:
+        case resposta.indexOf('lei') !== -1:
+        case resposta.indexOf('legislação') !== -1:
+        case resposta.indexOf('legislacao') !== -1:
+
+          newURL = "https://reciprev.recife.pe.gov.br/normatizacoes";
+          desativarInput();
+          robotDialog(`
+          <p>Deseja ser direcionado para a seção <strong>${mensagemUser}</strong>?</p>
+          <div class="chat-btn" onclick="enviarMsg('Sim, leve-me até lá!');window.location.href = '${newURL}';">Sim, leve-me até lá!</div>
+          <div class="chat-btn" onclick="ativarInput();enviarMsg('Não, desejo outra coisa.')">Não, desejo outra coisa.</div>
+          `);
           break;
         
         // SAUDE RECIFE > PORTAL DO BENEFICIÁRIO
         case resposta.indexOf('portal do beneficiário') !== -1:
         case resposta.indexOf('portal') !== -1:
         case resposta.indexOf('beneficiario') !== -1:
-          window.location.href = "http://www.recife.pe.gov.br/sauderecife/getRoles.do;jsessionid=FAB987E8CAAFFADF62E4B5C2B25FC534";
+
+          newURL = "http://www.recife.pe.gov.br/sauderecife";
+          desativarInput();
+          robotDialog(`
+          <p>Deseja ser direcionado para a seção <strong>${mensagemUser}</strong>?</p>
+          <div class="chat-btn" onclick="enviarMsg('Sim, leve-me até lá!');window.location.href = '${newURL}';">Sim, leve-me até lá!</div>
+          <div class="chat-btn" onclick="ativarInput();enviarMsg('Não, desejo outra coisa.')">Não, desejo outra coisa.</div>
+          `);
           break;
         
         // SAUDE RECIFE > REDE MÉDICA CREDENCIADA
         case resposta.indexOf('rede medica credenciada') !== -1:
         case resposta.indexOf('rede médica credenciada') !== -1:
         case resposta.indexOf('rede credenciada') !== -1:
-          window.location.href = "https://reciprev.recife.pe.gov.br/rede-medica-credenciada";
-          break;
-        
-        // SAUDE RECIFE > SISTEMA DE CO-PARTICIPAÇÃO
-        case resposta.indexOf('co-participação') !== -1:
-        case resposta.indexOf('co-participacao') !== -1:
-          window.location.href = "https://reciprev.recife.pe.gov.br/sistema-de-co-participacao";
+        case resposta.indexOf('credenciado') !== -1:
+        case resposta.indexOf('credenciados') !== -1:
+
+          newURL = "https://reciprev.recife.pe.gov.br/manual-da-rede-credenciada";
+          desativarInput();
+          robotDialog(`
+          <p>Deseja ser direcionado para a seção <strong>${mensagemUser}</strong>?</p>
+          <div class="chat-btn" onclick="enviarMsg('Sim, leve-me até lá!');window.location.href = '${newURL}';">Sim, leve-me até lá!</div>
+          <div class="chat-btn" onclick="ativarInput();enviarMsg('Não, desejo outra coisa.')">Não, desejo outra coisa.</div>
+          `);
           break;
 
-        // SAUDE RECIFE > SOBRE O SAÚDE RECIFE
-        case resposta.indexOf('sobre o sistema') !== -1:
-          window.location.href = "https://reciprev.recife.pe.gov.br/sobre-o-sistema-saude-recife";
-          break;
 
         // PREVIDENCIA
         case resposta.indexOf('reciprev') !== -1:
         case resposta.indexOf('reciprev') !== -1:
+        case resposta.indexOf('previdência') !== -1:
+        case resposta.indexOf('previdencia') !== -1:
           robotDialog(`<p>No <strong>Plano de Previdência</strong> posso lhe ajudar em:</p>
             <div class="chat-btn" onclick="enviarMsg('Calendário de pagamento')">Calendário de pagamento</div>
             <div class="chat-btn" onclick="enviarMsg('Acompanhamento de processos')">Acompanhamento de processos</div>
             <div class="chat-btn" onclick="enviarMsg('Aposentadoria')">Aposentadoria</div>
-            <div class="chat-btn" onclick="enviarMsg('Auxílio funeral')">Auxílio funeral</div>
-            <div class="chat-btn" onclick="enviarMsg('CADPREV/DIPR')">CADPREV/DIPR</div>
             <div class="chat-btn" onclick="enviarMsg('Concessão de pensão')">Concessão de pensão</div>
-            <div class="chat-btn" onclick="enviarMsg('Contribuições previdenciárias')">Contribuições previdenciárias</div>
-            <div class="chat-btn" onclick="enviarMsg('Certificado de Regularidade Previdenciária')">Certificado de Regularidade Previdenciária</div>
-            <div class="chat-btn" onclick="enviarMsg('Estudo de Aderência')">Estudo de Aderência</div>
             <div class="chat-btn" onclick="enviarMsg('Extrato previdenciário')">Extrato previdenciário</div>
-            <div class="chat-btn" onclick="enviarMsg('Gestão atuarial')">Gestão atuarial</div>
             <div class="chat-btn" onclick="enviarMsg('Prova de anual de vida')">Prova anual de vida</div>
-            <div class="chat-btn" onclick="enviarMsg('Plano de Trabalho Atuarial')">Plano de Trabalho Atuarial</div>
-            <div class="chat-btn" onclick="enviarMsg('Passivo judicial')">Passivo judicial</div>
-            <div class="chat-btn" onclick="enviarMsg('Previdência complementar')">Previdência complementar</div>
             <div class="chat-btn" onclick="enviarMsg('Restos deixados')">Restos deixados</div>
-            <div class="chat-btn" onclick="enviarMsg('Reciprev serviços')">Reciprev serviços</div>
+            <div class="chat-btn" onclick="enviarMsg('Serviços')">Reciprev serviços</div>
             `);
-          break;
-
-        // PREVIDENCIA > CALENDÁRIO DE PAGAMENTO
-        case resposta.indexOf('calendário') !== -1:
-        case resposta.indexOf('calendario') !== -1:
-          robotDialog(`<p>Direcionar para Calendário de pagamento</p>`);
           break;
         
         // PREVIDENCIA > ACOMPANHAMENTO DE PROCESSO
         case resposta.indexOf('processo') !== -1:
         case resposta.indexOf('processos') !== -1:
         case resposta.indexOf('acompanhamento de processos') !== -1:
-          window.location.href = "https://recifeemdia.recife.pe.gov.br/acompanhamentoProcesso/";
+
+          newURL = "https://recifeemdia.recife.pe.gov.br/acompanhamentoProcesso/";
+          desativarInput();
+          robotDialog(`
+          <p>Deseja ser direcionado para a seção <strong>${mensagemUser}</strong>?</p>
+          <div class="chat-btn" onclick="enviarMsg('Sim, leve-me até lá!');window.location.href = '${newURL}';">Sim, leve-me até lá!</div>
+          <div class="chat-btn" onclick="ativarInput();enviarMsg('Não, desejo outra coisa.')">Não, desejo outra coisa.</div>
+          `);
           break;
         
         // PREVIDENCIA > APOSENTADORIA
         case resposta.indexOf('aposentadoria') !== -1:
-          window.location.href = "https://reciprev.recife.pe.gov.br/aposentadoria";
+        case resposta.indexOf('aposentado') !== -1:
+        case resposta.indexOf('aposentada') !== -1:
+
+          newURL = "https://reciprev.recife.pe.gov.br/aposentadoria";
+          desativarInput();
+          robotDialog(`
+          <p>Deseja ser direcionado para a seção <strong>${mensagemUser}</strong>?</p>
+          <div class="chat-btn" onclick="enviarMsg('Sim, leve-me até lá!');window.location.href = '${newURL}';">Sim, leve-me até lá!</div>
+          <div class="chat-btn" onclick="ativarInput();enviarMsg('Não, desejo outra coisa.')">Não, desejo outra coisa.</div>
+          `);
           break;
 
         // PREVIDENCIA > AUXILIO FUNERAL
@@ -240,14 +245,14 @@ const robotReact = (mensagemUser) => {
         
         // PREVIDENCIA > CONCESSÃO DE PENSÃO
         case resposta.indexOf('pensão') !== -1:
-          window.location.href = "https://reciprev.recife.pe.gov.br/concessao-de-pensao";
-          break;
 
-        // PREVIDENCIA > CONTRIBUIÇÕES PREVIDENCIÁRIAS
-        case resposta.indexOf('contribuições') !== -1:
-        case resposta.indexOf('previdenciarias') !== -1:
-        case resposta.indexOf('previdenciárias') !== -1:
-          window.location.href = "https://reciprev.recife.pe.gov.br/contribuicoes-previdenciarias";
+          newURL = "https://reciprev.recife.pe.gov.br/concessao-de-pensao";
+          desativarInput();
+          robotDialog(`
+          <p>Deseja ser direcionado para a seção <strong>${mensagemUser}</strong>?</p>
+          <div class="chat-btn" onclick="enviarMsg('Sim, leve-me até lá!');window.location.href = '${newURL}';">Sim, leve-me até lá!</div>
+          <div class="chat-btn" onclick="ativarInput();enviarMsg('Não, desejo outra coisa.')">Não, desejo outra coisa.</div>
+          `);
           break;
         
         // PREVIDENCIA > CERTIFICADO DE REGULARIDADE PREVIDENCIÁRIA - CRP 
@@ -266,7 +271,17 @@ const robotReact = (mensagemUser) => {
 
         // PREVIDENCIA > EXTRATO PREVIDENCIÁRIO
         case resposta.indexOf('extrato') !== -1:
-          window.location.href = "https://login.recife.pe.gov.br/auth/realms/recife/protocol/openid-connect/auth?response_type=code&redirect_uri=https%3A%2F%2Fportaldoservidor.recife.pe.gov.br%2Flogin_check&client_id=pose&nonce=5890f8c4be350d734ea452d5c792dc29&state=602b7cdc6e952a4d09872d2a45d74dbb&scope=openid";
+        case resposta.indexOf('contribuições') !== -1:
+        case resposta.indexOf('previdenciarias') !== -1:
+        case resposta.indexOf('previdenciárias') !== -1:
+
+          newURL = "https://login.recife.pe.gov.br/auth/realms/recife/protocol/openid-connect/auth?response_type=code&redirect_uri=https%3A%2F%2Fportaldoservidor.recife.pe.gov.br%2Flogin_check&client_id=pose&nonce=5890f8c4be350d734ea452d5c792dc29&state=602b7cdc6e952a4d09872d2a45d74dbb&scope=openid";
+          desativarInput();
+          robotDialog(`
+          <p>Deseja ser direcionado para a seção <strong>${mensagemUser}</strong>?</p>
+          <div class="chat-btn" onclick="enviarMsg('Sim, leve-me até lá!');window.location.href = '${newURL}';">Sim, leve-me até lá!</div>
+          <div class="chat-btn" onclick="ativarInput();enviarMsg('Não, desejo outra coisa.')">Não, desejo outra coisa.</div>
+          `);
           break;
 
         // PREVIDENCIA > GESTÃO ATUARIAL
@@ -276,7 +291,14 @@ const robotReact = (mensagemUser) => {
 
         // PREVIDENCIA > PROVA ANUAL DE VIDA
         case resposta.indexOf('prova') !== -1:
-          window.location.href = "https://reciprev.recife.pe.gov.br/prova-de-vida";
+
+          newURL = "https://reciprev.recife.pe.gov.br/prova-de-vida";
+          desativarInput();
+          robotDialog(`
+          <p>Deseja ser direcionado para a seção <strong>${mensagemUser}</strong>?</p>
+          <div class="chat-btn" onclick="enviarMsg('Sim, leve-me até lá!');window.location.href = '${newURL}';">Sim, leve-me até lá!</div>
+          <div class="chat-btn" onclick="ativarInput();enviarMsg('Não, desejo outra coisa.')">Não, desejo outra coisa.</div>
+          `);
           break;
 
         // PREVIDENCIA > PLANO DE TRABALHO ATUARIAL
@@ -298,12 +320,26 @@ const robotReact = (mensagemUser) => {
         // PREVIDENCIA > RESTOS DEIXADOS
         case resposta.indexOf('restos') !== -1:
         case resposta.indexOf('deixados') !== -1:
-          window.location.href = "https://reciprev.recife.pe.gov.br/restos-deixados";
+
+          newURL = "https://reciprev.recife.pe.gov.br/restos-deixados";
+          desativarInput();
+          robotDialog(`
+          <p>Deseja ser direcionado para a seção <strong>${mensagemUser}</strong>?</p>
+          <div class="chat-btn" onclick="enviarMsg('Sim, leve-me até lá!');window.location.href = '${newURL}';">Sim, leve-me até lá!</div>
+          <div class="chat-btn" onclick="ativarInput();enviarMsg('Não, desejo outra coisa.')">Não, desejo outra coisa.</div>
+          `);
           break;
 
         // PREVIDENCIA > RECIPREV SERVIÇOS
         case resposta.indexOf('serviços') !== -1:
-          window.location.href = "https://reciprev.recife.pe.gov.br/reciprev-servicos";
+
+          newURL = "https://reciprev.recife.pe.gov.br/reciprev-servicos";
+          desativarInput();
+          robotDialog(`
+          <p>Deseja ser direcionado para a seção <strong>${mensagemUser}</strong>?</p>
+          <div class="chat-btn" onclick="enviarMsg('Sim, leve-me até lá!');window.location.href = '${newURL}';">Sim, leve-me até lá!</div>
+          <div class="chat-btn" onclick="ativarInput();enviarMsg('Não, desejo outra coisa.')">Não, desejo outra coisa.</div>
+          `);
           break;
 
         default:
