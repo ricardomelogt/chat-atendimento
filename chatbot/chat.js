@@ -190,7 +190,6 @@ const robotReact = (mensagemUser) => {
         case resposta.indexOf('previdência') !== -1:
         case resposta.indexOf('previdencia') !== -1:
           robotDialog(`<p>No <strong>Plano de Previdência</strong> posso lhe ajudar em:</p>
-            <div class="chat-btn" onclick="enviarMsg('Calendário de pagamento')">Calendário de pagamento</div>
             <div class="chat-btn" onclick="enviarMsg('Acompanhamento de processos')">Acompanhamento de processos</div>
             <div class="chat-btn" onclick="enviarMsg('Aposentadoria')">Aposentadoria</div>
             <div class="chat-btn" onclick="enviarMsg('Concessão de pensão')">Concessão de pensão</div>
